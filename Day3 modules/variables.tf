@@ -5,3 +5,6 @@ variable "ami_value"{
 variable "instance_type_value"{
     description = "value for instance type"
 }
+variable "key"{
+    description = "key value pair name"
+}
