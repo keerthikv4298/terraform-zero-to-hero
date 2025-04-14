@@ -53,26 +53,26 @@ resource "aws_security_group" "webSG" {
         from_port = 22
         to_port = 22
         protocol = "ssh"
-        cidr_blocks = "0.0.0.0/0"
+        cidr_blocks = ["0.0.0.0/0"]
     }
     ingress {
         from_port = 80
         to_port = 80
         protocol = "http"
-        cidr_blocks = "0.0.0.0/0"
+        cidr_blocks = ["0.0.0.0/0"]
     }
 
     egress{
         from_port = 0
         to_port = 0
         protocol = -1
-        cidr_blocks = "0.0.0.0/0"
+        cidr_blocks = ["0.0.0.0/0"]
     }
 
 }
-variable "ami_id"{
-    description = "the value to use ami"
-}
+# variable "ami_id"{
+#     description = "the value to use ami"
+# }
 resource "aws_instance" "webserver1"{
     ami = "ami-0e35ddab05955cf57"
     instance_type = "t2.micro"
