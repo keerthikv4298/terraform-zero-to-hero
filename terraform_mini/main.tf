@@ -92,16 +92,29 @@ resource "aws_instance" "webserver1"{
         
     }
 
-    provisioner "remote-exec" {
+    # provisioner "remote-exec" {
+    #     inline = [
+    #         "sudo apt-get update",
+    #         "sudo apt-get install -y python3-pip",
+    #         "cd /home/ubuntu",
+    #         "sudo pip3 install flask",
+    #         "sudo python3 app.py &",
+    #         ]
+    # }
+
+    #flask can be installed on environment only so we need to create python environment
+
+   provisioner "remote-exec" {
         inline = [
-            "sudo apt-get update",
-            "sudo apt-get install -y python3-pip",
-            "cd /home/ubuntu",
-            "sudo pip3 install flask",
-            "sudo python3 app.py &",
+             "sudo apt-get update -y",
+              "sudo apt-get install -y python3-pip python3-venv",
+              "cd /home/ubuntu",
+              "python3 -m venv venv",
+              "source venv/bin/activate && pip install flask",
+              "nohup venv/bin/python /home/ubuntu/app.py > app.log 2>&1 &"
             ]
     }
-
+ 
 }
 output "public_ip"{
     description = "the public ip of the instance is:"
