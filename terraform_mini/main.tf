@@ -74,7 +74,7 @@ variable "ami_id"{
     description = "the value to use ami"
 }
 resource "aws_instance" "webserver1"{
-    ami = var.ami_id
+    ami = "ami-0e35ddab05955cf57"
     instance_type = "t2.micro"
     #subnet_id = aws_subnet.subnet1
     vpc_security_group_ids = [aws_security_group.webSG.id]
