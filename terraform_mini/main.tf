@@ -52,13 +52,13 @@ resource "aws_security_group" "webSG" {
     ingress {
         from_port = 22
         to_port = 22
-        protocol = "ssh"
+        protocol = "tcp"
         cidr_blocks = ["0.0.0.0/0"]
     }
     ingress {
         from_port = 80
         to_port = 80
-        protocol = "http"
+        protocol = "tcp"
         cidr_blocks = ["0.0.0.0/0"]
     }
 
@@ -79,16 +79,17 @@ resource "aws_instance" "webserver1"{
     #subnet_id = aws_subnet.subnet1
     vpc_security_group_ids = [aws_security_group.webSG.id]
     key_name = aws_key_pair.app_key.key_name
-
-    provisioner "file" {
-        source      = "app.py"
-        destination = "/home/ubuntu/"
-        connection {
+    connection {
             type     = "ssh"
             user     = "ubuntu"
             private_key = file(".ssh/id_rsa")
             host = self.public_ip
             }
+
+    provisioner "file" {
+        source      = "app.py"
+        destination = "/home/ubuntu/app.py"
+        
     }
 
     provisioner "remote-exec" {
