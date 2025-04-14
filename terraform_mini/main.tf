@@ -4,7 +4,7 @@ provider "aws"{
 
 resource "aws_key_pair" "app_key"{
     key_name = "app_key"
-    public_key = file("~/.ssh/id_rsa.pub")
+    public_key = file(".ssh/id_rsa.pub")
 
 }
 
@@ -86,7 +86,7 @@ resource "aws_instance" "webserver1"{
         connection {
             type     = "ssh"
             user     = "ubuntu"
-            private_key = file("~/.ssh/id_rsa")
+            private_key = file(".ssh/id_rsa")
             host = self.public_ip
             }
     }
