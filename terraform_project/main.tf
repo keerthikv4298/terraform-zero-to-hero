@@ -79,7 +79,7 @@ resource "aws_instance" "webserver1" {
     instance_type = "t2.micro"
     vpc_security_group_ids = [aws_security_group.webSG.id]
     subnet_id = aws_subnet.subnet2.id
-    user_data = base64decode(file("userdata1.sh"))
+    user_data = base64encode(file("userdata1.sh"))
 
 }
 
@@ -88,7 +88,8 @@ resource "aws_instance" "webserver2" {
     instance_type = "t2.micro"
     vpc_security_group_ids = [aws_security_group.webSG.id]
     subnet_id = aws_subnet.subnet2.id
-    user_data = base64decode(file("userdata2.sh"))
+    user_data = base64encode(file("userdata2.sh"))
+
 
 }
 
@@ -98,7 +99,7 @@ resource "aws_alb" "alb" {
     internal           = false
     load_balancer_type = "application"
     security_groups    = [aws_security_group.webSG.id]
-    subnets            = [aws_subnet.subne1.id, aws_subnet.subnet2.id]
+    subnets            = [aws_subnet.subnet1.id, aws_subnet.subnet2.id]
 }
 
 resource "aws_lb_target_group" "tg" {
