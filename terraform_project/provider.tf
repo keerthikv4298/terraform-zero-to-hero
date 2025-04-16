@@ -9,5 +9,5 @@ terraform {
 
 
 provider "aws"{
-    region = "ap-southh-1"
+    region = "ap-south-1"
 }
